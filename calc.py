@@ -3,10 +3,16 @@ from decimal import *
 
 
 def check_precedence(i):
-    if i == '*' or "/":
+    if i == '*':
         return 2
-    elif i == '+' or '-':
+    if i == '/':
+    	return 2
+    if i == '+':
         return 1
+    if i == '-':
+    	return 1
+    if i == '(':
+    	return 0
 
 
 def to_postfix(expression):
@@ -16,16 +22,14 @@ def to_postfix(expression):
         if i not in ('-', '+', '*', '/', '(', ')'):
             queue.append(i)
         elif i == "(":
-
             op_stack.append(i)
         elif i == ")":
-            while op_stack:
+            while op_stack[-1] != "(":
                 last = op_stack.pop()
-                if last == "(":
-                    break
                 queue.append(last)
-        else:
-            while op_stack and check_precedence(i) <= check_precedence(op_stack[-1]) and op_stack[-1] != "(":
+            op_stack.pop()
+        elif i in ('+', '-', '/', '*'):
+            while op_stack and check_precedence(op_stack[-1]) >= check_precedence(i) and op_stack[-1] != "(":
                 queue.append(op_stack.pop())
             op_stack.append(i)
     while op_stack:
@@ -54,7 +58,5 @@ def calc(postfix):
 
 formula = input('> ')
 tokenized_formula = re.findall(r"[\d.]+|[()+\-*/]", formula)
-print(tokenized_formula)
 postfix_expression = to_postfix(tokenized_formula)
-print(postfix_expression)
 print(calc(postfix_expression))
