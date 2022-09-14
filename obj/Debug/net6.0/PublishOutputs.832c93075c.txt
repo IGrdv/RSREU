@@ -1,5 +1,0 @@
-/home/iggor/RSREU/bin/Debug/net6.0/publish/hello
-/home/iggor/RSREU/bin/Debug/net6.0/publish/hello.dll
-/home/iggor/RSREU/bin/Debug/net6.0/publish/hello.deps.json
-/home/iggor/RSREU/bin/Debug/net6.0/publish/hello.runtimeconfig.json
-/home/iggor/RSREU/bin/Debug/net6.0/publish/hello.pdb
