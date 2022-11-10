@@ -2,7 +2,7 @@ import re
 from decimal import *
 
 
-def check_precedence(i):
+def precedence_of(i):
     if i == '*':
         return 2
     if i == '/':
@@ -17,26 +17,33 @@ def check_precedence(i):
 
 def to_postfix(expression):
     queue = []
-    op_stack = []
-    for i in expression:
-        if i not in ('-', '+', '*', '/', '(', ')'):
-            queue.append(i)
-        elif i == "(":
-            op_stack.append(i)
-        elif i == ")":
-            while op_stack[-1] != "(":
-                last = op_stack.pop()
+    operator_stack = []
+    for current_token in expression:
+        if current_token not in ('-', '+', '*', '/', '(', ')'):
+            queue.append(current_token)
+        elif current_token == "(":
+            operator_stack.append(current_token)
+        elif current_token == ")":
+            while operator_stack[-1] != "(":
+                last = operator_stack.pop()
                 queue.append(last)
-                if not op_stack:
+                if not operator_stack:
                     print('Mismatched parentheses.')
                     exit(1)
-            op_stack.pop()
-        elif i in ('+', '-', '/', '*'):
-            while op_stack and check_precedence(op_stack[-1]) >= check_precedence(i) and op_stack[-1] != "(":
-                queue.append(op_stack.pop())
-            op_stack.append(i)
-    while op_stack:
-        queue.append(op_stack.pop())
+            operator_stack.pop()
+        elif current_token in ('+', '-', '/', '*'):
+            while True:
+                if not operator_stack:
+                    break
+                top_stack_operator = operator_stack[-1]
+                if top_stack_operator == "(":
+                    break
+                if precedence_of(top_stack_operator) < precedence_of(current_token):
+                    break
+                queue.append(operator_stack.pop())
+            operator_stack.append(current_token)
+    while operator_stack:
+        queue.append(operator_stack.pop())
     return queue
 
 
@@ -70,20 +77,25 @@ def calc(postfix):
     return stack.pop()
 
 
-formula = input('> ')
-tokenized_formula = re.findall(r"[\d.]+|[()+\-*/]", formula)
-operands_amount = 0
-operators_amount = 0
-for token in tokenized_formula:
-    if token in ('-', '+', '*', '/'):
-        operators_amount += 1
-    if token.replace('.', '', 1).isdigit():
-        operands_amount += 1
-if operators_amount < operands_amount - 1:
-    print('Not enough operators.')
-    exit(1)
-if operators_amount > operands_amount - 1:
-    print('Too many operators.')
-    exit(1)
-postfix_expression = to_postfix(tokenized_formula)
-print(calc(postfix_expression))
+def calculate():
+    formula = input('> ')
+    tokenized_formula = re.findall(r"[\d.]+|[()+\-*/]", formula)
+    operands_amount = 0
+    operators_amount = 0
+    for token in tokenized_formula:
+        if token in ('-', '+', '*', '/'):
+            operators_amount += 1
+        if token.replace('.', '', 1).isdigit():
+            operands_amount += 1
+
+    if operators_amount < operands_amount - 1:
+        print('Not enough operators.')
+    elif operands_amount - 1 < operators_amount:
+        print('Too many operators.')
+    else:
+        postfix_expression = to_postfix(tokenized_formula)
+        print(calc(postfix_expression))
+
+
+while True:
+    calculate()
