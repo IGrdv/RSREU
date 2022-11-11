@@ -6,6 +6,8 @@
 
         public string ProductName { get; set; }
 
+        public string Recipe { get; set; }
+
         public decimal Price { get; set; }
 
     }

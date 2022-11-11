@@ -8,5 +8,7 @@
 
         public string PhoneNumber { get; set; }
 
+        public int ActiveOrders { get; set; }
+
     }
 }
