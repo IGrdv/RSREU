@@ -1,22 +1,39 @@
-﻿namespace PizzaDelivery.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace PizzaDelivery.Models
 {
     public class Address
     {
-        public int AddressId { get; set; }
+        [Key]
+        public int Id { get; set; }
 
         public int ClientId { get; set; }
 
-        public string Apartment { get; set; }
+        [Required]
+        public string Apartment { get; set; } = null!;
 
-        public string Building { get; set; }
+        [Required]
+        public string Building { get; set; } = null!;
 
-        public string Street { get; set; }
+        [Required]
+        public string Street { get; set; } = null!;
 
-        public string City { get; set; }
+        [Required]
+        public string City { get; set; } = null!;
 
-        public string Region { get; set; }
+        [Required]
+        public string Region { get; set; } = null!;
 
-        public string PostalCode { get; set; }
+        [Required]
+        public string PostalCode { get; set; } = null!;
+
+        [JsonIgnore]
+        public Client Client { get; set; } = null!;
+
+        [JsonIgnore]
+        public List<Order>? Orders { get; set; } = new();
 
     }
 }

@@ -1,18 +1,28 @@
-﻿namespace PizzaDelivery.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace PizzaDelivery.Models
 {
     public class Employee
     {
-        public int EmployeeId { get; set; }
+        [Key]
+        public int Id { get; set; }
 
-        public string FIO { get; set; }
+        [Required]
+        public string FIO { get; set; } = null!;
 
         public int PositionId { get; set; }
 
-        public string PhoneNumber { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string PhoneNumber { get; set; } = null!;
 
         public DateTime Birthday { get; set; }
 
         public int RestaurantId { get; set; }
+
+        [JsonIgnore]
+        public Position? Position { get; set; }
 
     }
 }
