@@ -30,7 +30,7 @@ namespace PizzaDelivery.Models
         public string PostalCode { get; set; } = null!;
 
         [JsonIgnore]
-        public Client Client { get; set; } = null!;
+        public Client? Client { get; set; } = null!;
 
         [JsonIgnore]
         public List<Order>? Orders { get; set; } = new();
