@@ -19,7 +19,7 @@ namespace PizzaDelivery.Models
         public decimal CheckAmount { get; set; }
 
         [JsonIgnore]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
 
     }
 }
