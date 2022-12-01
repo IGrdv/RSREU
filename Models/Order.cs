@@ -27,22 +27,22 @@ namespace PizzaDelivery.Models
         public string Status { get; set; }
 
         [JsonIgnore]
-        public Client Client { get; set; }
+        public Client? Client { get; set; }
 
         [JsonIgnore]
-        public Address Address { get; set; }
+        public Address? Address { get; set; }
 
         [JsonIgnore]
-        public Employee ChefEmployee { get; set; }
+        public Employee? ChefEmployee { get; set; }
 
         [JsonIgnore]
-        public Employee CourierEmployee { get; set; }
+        public Employee? CourierEmployee { get; set; }
 
         [JsonIgnore]
-        public Employee OperatorEmployee { get; set; }
+        public Employee? OperatorEmployee { get; set; }
 
         [JsonIgnore]
-        public Restaurant Restaurant { get; set; }
+        public Restaurant? Restaurant { get; set; }
 
 
     }
