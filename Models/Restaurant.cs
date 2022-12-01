@@ -18,7 +18,7 @@ namespace PizzaDelivery.Models
         public int ActiveOrders { get; set; }
         
         [JsonIgnore]
-        public List<Order> Orders { get; set; } = new();
+        public List<Order>? Orders { get; set; } = new();
 
     }
 }
